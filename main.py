@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Form
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
@@ -16,7 +16,7 @@ async def homepage(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post("/calculate")
-async def calculate(num1: float, num2: float, operation: str):
+async def calculate(num1: float = Form(...), num2: float = Form(...), operation: str = Form(...)):
     result = None
     if operation == "add":
         result = num1 + num2
